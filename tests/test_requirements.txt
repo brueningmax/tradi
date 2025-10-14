@@ -1,0 +1,23 @@
+# Testing Requirements for TraderAgent
+# These packages are needed to run the test suite
+
+# Core testing framework (usually included with Python)
+# unittest - included in Python standard library
+
+# HTTP mocking for API tests
+requests>=2.25.0
+
+# OpenAI API client (for AI decision tests)
+openai>=1.0.0
+
+# Environment variable management
+python-dotenv>=0.19.0
+
+# Optional: Enhanced testing tools
+# pytest>=7.0.0  # Alternative test runner
+# pytest-mock>=3.6.0  # Enhanced mocking
+# coverage>=6.0  # Code coverage analysis
+
+# Note: The test suite is designed to work with Python's built-in unittest
+# and doesn't require additional testing frameworks, though they can enhance
+# the testing experience if desired.

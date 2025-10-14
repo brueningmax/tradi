@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  # Production TraderAgent
+  traderagent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: traderagent-prod
+    restart: unless-stopped
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PYTHONPATH=/app/src
+    volumes:
+      # Persist trading data
+      - ./data:/app/data
+      # Optional: Mount custom config
+      - ./config:/app/config:ro
+    networks:
+      - trader-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    command: ["python", "main.py", "--live", "--paper"]
+
+  # Development environment with tests
+  traderagent-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: traderagent-dev
+    profiles: ["dev"]  # Only start with --profile dev
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PYTHONPATH=/app/src
+    volumes:
+      # Mount entire project for development
+      - .:/app
+      # Exclude virtual environment
+      - /app/env
+    networks:
+      - trader-network
+    command: ["tail", "-f", "/dev/null"]  # Keep container running for development
+
+  # Live trading (real money) - requires explicit profile
+  traderagent-live:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: traderagent-live
+    profiles: ["live"]  # Only start with --profile live
+    restart: unless-stopped
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PYTHONPATH=/app/src
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config:ro
+    networks:
+      - trader-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    command: ["python", "main.py", "--live"]
+
+networks:
+  trader-network:
+    driver: bridge
+
+# Example usage:
+# Default (paper trading):     docker-compose up
+# Development:                 docker-compose --profile dev up traderagent-dev
+# Live trading (DANGER):       docker-compose --profile live up traderagent-live

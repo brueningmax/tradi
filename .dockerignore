@@ -1,0 +1,93 @@
+# Docker ignore file for TraderAgent
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Testing
+.pytest_cache/
+.coverage
+.tox/
+.nox/
+htmlcov/
+.testmondata/
+tests/
+scripts/test_*.py
+scripts/run_*tests.py
+
+# Documentation
+README.md
+docs/
+*.md
+
+# Configuration and environment files
+.env
+.env.local
+.env.*.local
+config/environment.yml
+
+# Logs
+*.log
+logs/
+
+# Backup files
+*.bak
+*.backup
+
+# Development tools
+.pre-commit-config.yaml
+.flake8
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Docker files themselves (when building)
+Dockerfile*
+docker-compose*.yml
+.dockerignore

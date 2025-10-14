@@ -1,0 +1,49 @@
+{
+  "USD": 1000.0,
+  "coins": {
+    "BTC": {
+      "amount": 0.0,
+      "avg_price": 0.0
+    },
+    "SOL": {
+      "amount": 0.0,
+      "avg_price": 0.0
+    }
+  },
+  "positions": {
+    "BTC": {
+      "long": {
+        "amount": 0.0,
+        "avg_price": 0.0,
+        "stop_loss": null,
+        "take_profit": null
+      },
+      "short": {
+        "amount": 0.0,
+        "avg_price": 0.0,
+        "stop_loss": null,
+        "take_profit": null
+      }
+    },
+    "SOL": {
+      "long": {
+        "amount": 0.0,
+        "avg_price": 0.0,
+        "stop_loss": null,
+        "take_profit": null
+      },
+      "short": {
+        "amount": 0.0,
+        "avg_price": 0.0,
+        "stop_loss": null,
+        "take_profit": null
+      }
+    }
+  },
+  "margin": {
+    "available": 1000.0,
+    "used": 0.0
+  },
+  "history": [],
+  "realized_pnl": 0.0
+}
