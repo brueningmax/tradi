@@ -146,23 +146,21 @@ jobs:
         if [ -f "data/paper_balance.json" ]; then
           echo "### 💰 Current Balance" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
-          python -c "
-import json
-with open('data/paper_balance.json', 'r') as f:
-    balance = json.load(f)
-    print('USD: $' + str(round(balance['USD'], 2)))
-    print('Realized P&L: $' + str(round(balance['realized_pnl'], 2)))
-    print('Available Margin: $' + str(round(balance['margin']['available'], 2)))
-    print('Used Margin: $' + str(round(balance['margin']['used'], 2)))
-    
-    for coin in ['BTC', 'SOL']:
-        long_pos = balance['positions'][coin]['long']
-        short_pos = balance['positions'][coin]['short']
-        if long_pos['amount'] > 0:
-            print(coin + ' LONG: ' + str(round(long_pos['amount'], 6)) + ' @ $' + str(round(long_pos['avg_price'], 2)))
-        if short_pos['amount'] > 0:
-            print(coin + ' SHORT: ' + str(round(short_pos['amount'], 6)) + ' @ $' + str(round(short_pos['avg_price'], 2)))
-          " >> $GITHUB_STEP_SUMMARY
+          cat data/paper_balance.json | python -c "
+import sys, json
+balance = json.load(sys.stdin)
+print('USD: $' + str(round(balance['USD'], 2)))
+print('Realized P&L: $' + str(round(balance['realized_pnl'], 2)))
+print('Available Margin: $' + str(round(balance['margin']['available'], 2)))
+print('Used Margin: $' + str(round(balance['margin']['used'], 2)))
+for coin in ['BTC', 'SOL']:
+    long_pos = balance['positions'][coin]['long']
+    short_pos = balance['positions'][coin]['short']
+    if long_pos['amount'] > 0:
+        print(coin + ' LONG: ' + str(round(long_pos['amount'], 6)) + ' @ $' + str(round(long_pos['avg_price'], 2)))
+    if short_pos['amount'] > 0:
+        print(coin + ' SHORT: ' + str(round(short_pos['amount'], 6)) + ' @ $' + str(round(short_pos['avg_price'], 2)))
+" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
         fi
         
