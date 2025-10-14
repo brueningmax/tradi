@@ -77,9 +77,11 @@ jobs:
           echo "🎯 Trading mode: ${TRADING_MODE}"
           echo "📈 Volume analysis: ${USE_VOLUME}"
 
-          ARGS="--live"
+          ARGS=""
           if [ "${TRADING_MODE}" = "paper" ]; then
             ARGS="${ARGS} --paper"
+          else
+            ARGS="${ARGS} --live"
           fi
           if [ "${USE_VOLUME}" = "false" ]; then
             ARGS="${ARGS} --no-volume"
