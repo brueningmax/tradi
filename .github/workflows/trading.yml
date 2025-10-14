@@ -159,43 +159,13 @@ jobs:
         shell: bash
         run: |
           if [ -f "data/paper_balance.json" ]; then
-            tmpfile="$(mktemp)"
-            python - <<'PY' > "$tmpfile"
-import json, sys
-try:
-    with open('data/paper_balance.json', 'r') as f:
-        balance = json.load(f)
-    def r2(x):
-        try:
-            return round(float(x), 2)
-        except Exception:
-            return x
-    out = []
-    out.append(f"USD: ${r2(balance.get('USD', 0))}")
-    out.append(f"Realized P&L: ${r2(balance.get('realized_pnl', 0))}")
-    m = balance.get('margin', {})
-    out.append(f"Available Margin: ${r2(m.get('available', 0))}")
-    out.append(f"Used Margin: ${r2(m.get('used', 0))}")
-    for coin in ['BTC', 'SOL']:
-        pos = balance.get('positions', {}).get(coin, {})
-        long_pos = pos.get('long', {})
-        short_pos = pos.get('short', {})
-        if long_pos.get('amount', 0) > 0:
-            out.append(f"{coin} LONG: {round(long_pos['amount'], 6)} @ ${r2(long_pos.get('avg_price', 0))}")
-        if short_pos.get('amount', 0) > 0:
-            out.append(f"{coin} SHORT: {round(short_pos['amount'], 6)} @ ${r2(short_pos.get('avg_price', 0))}")
-    print("\n".join(out))
-except Exception as e:
-    print("Error reading balance:", e)
-PY
             {
               echo "### 💰 Current Balance"
               echo '```'
-              cat "$tmpfile"
+              python scripts/display_balance.py
               echo '```'
               echo
             } >> "$GITHUB_STEP_SUMMARY"
-            rm -f "$tmpfile"
           fi
 
       - name: 📋 Append recent trading history
@@ -203,25 +173,13 @@ PY
         shell: bash
         run: |
           if [ -f "data/paper_balance.json" ]; then
-            tmpfile="$(mktemp)"
-            python - <<'PY' > "$tmpfile"
-import json
-try:
-    with open('data/paper_balance.json', 'r') as f:
-        balance = json.load(f)
-    for trade in balance.get('history', [])[-5:]:
-        print(trade)
-except Exception as e:
-    print("Error reading history:", e)
-PY
             {
               echo "### 📋 Recent Trading History"
               echo '```'
-              cat "$tmpfile"
+              python scripts/display_history.py
               echo '```'
               echo
             } >> "$GITHUB_STEP_SUMMARY"
-            rm -f "$tmpfile"
           fi
 
       - name: 📤 Upload trading logs
