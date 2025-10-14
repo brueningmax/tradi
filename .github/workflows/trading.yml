@@ -3,206 +3,227 @@ name: TraderAgent Hourly Trading
 on:
   schedule:
     # Run every hour at the start of the hour (UTC)
-    - cron: '0 * * * *'
-  
-  # Allow manual triggering for testing
+    - cron: "0 * * * *"
+
+  # Allow manual trigger with inputs
   workflow_dispatch:
     inputs:
       trading_mode:
-        description: 'Trading mode'
+        description: "Trading mode"
         required: true
-        default: 'paper'
+        default: "paper"
         type: choice
         options:
-        - paper
-        - live
+          - paper
+          - live
       use_volume:
-        description: 'Use volume analysis'
+        description: "Use volume analysis"
         required: true
-        default: 'true'
+        default: true         # <-- boolean, not string
         type: boolean
 
 env:
-  PYTHON_VERSION: '3.11'
+  PYTHON_VERSION: "3.11"
   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
 jobs:
   trade:
     runs-on: ubuntu-latest
-    timeout-minutes: 10  # Prevent hanging workflows
-    
-    # Give the workflow write permissions to commit balance changes
+    timeout-minutes: 10
+
     permissions:
       contents: write
-    
+
     steps:
-    - name: 🔄 Checkout repository
-      uses: actions/checkout@v4
-      with:
-        # Fetch full history to ensure proper git operations
-        fetch-depth: 0
-        # Use a token that can push to protected branches
-        token: ${{ secrets.GITHUB_TOKEN }}
-      
-    - name: 🐍 Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
-        cache: 'pip'
-        
-    - name: 📦 Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        
-    - name: 🔍 Verify API key exists
-      run: |
-        if [ -z "$OPENAI_API_KEY" ]; then
-          echo "❌ OPENAI_API_KEY secret not configured"
-          exit 1
-        fi
-        echo "✅ OpenAI API key is configured"
-        
-    - name: 📊 Run trading bot
-      id: trading
-      run: |
-        echo "🤖 Starting TraderAgent execution..."
-        echo "📅 Execution time: $(date -u)"
-        echo "⏰ UTC Time: $(date -u '+%Y-%m-%d %H:%M:%S')"
-        
-        # Determine trading mode and volume setting
-        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-          TRADING_MODE="${{ github.event.inputs.trading_mode }}"
-          USE_VOLUME="${{ github.event.inputs.use_volume }}"
-        else
-          TRADING_MODE="paper"  # Default to paper for scheduled runs
-          USE_VOLUME="true"
-        fi
-        
-        echo "🎯 Trading mode: $TRADING_MODE"
-        echo "📈 Volume analysis: $USE_VOLUME"
-        
-        # Build command arguments
-        ARGS="--live"
-        if [ "$TRADING_MODE" = "paper" ]; then
-          ARGS="$ARGS --paper"
-        fi
-        if [ "$USE_VOLUME" = "false" ]; then
-          ARGS="$ARGS --no-volume"
-        fi
-        
-        echo "🚀 Command: python main.py $ARGS"
-        echo "execution_time=$(date -u)" >> $GITHUB_OUTPUT
-        echo "trading_mode=$TRADING_MODE" >> $GITHUB_OUTPUT
-        echo "use_volume=$USE_VOLUME" >> $GITHUB_OUTPUT
-        
-        # Run the trading bot with output capture
-        if [ "$TRADING_MODE" = "live" ]; then
-          echo "⚠️ LIVE TRADING MODE - USING REAL MONEY!"
-          echo "YES" | python main.py $ARGS 2>&1 | tee trading_output.log
-        else
-          python main.py $ARGS 2>&1 | tee trading_output.log
-        fi
-        
-        echo "execution_status=success" >> $GITHUB_OUTPUT
-        
-    - name: 💾 Commit updated balance
-      if: success()
-      run: |
-        # Configure git for automated commits
-        git config --local user.email "action@github.com"
-        git config --local user.name "TraderAgent Bot"
-        
-        # Check if balance file has changed
-        if git diff --quiet data/paper_balance.json; then
-          echo "📊 No balance changes to commit"
-        else
-          echo "💾 Committing updated balance..."
-          git add data/paper_balance.json
-          git commit -m "🤖 Update trading balance - $(date -u '+%Y-%m-%d %H:%M:%S')"
-          git push origin main
-          echo "✅ Balance successfully persisted to repository"
-        fi
-        
-    - name: 📈 Display trading results
-      if: always()
-      run: |
-        echo "## 🤖 TraderAgent Execution Report" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "**📅 Execution Time:** $(date -u)" >> $GITHUB_STEP_SUMMARY
-        echo "**🎯 Trading Mode:** ${{ steps.trading.outputs.trading_mode }}" >> $GITHUB_STEP_SUMMARY
-        echo "**📈 Volume Analysis:** ${{ steps.trading.outputs.use_volume }}" >> $GITHUB_STEP_SUMMARY
-        echo "**⏱️ Workflow:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        
-        if [ -f "trading_output.log" ]; then
-          echo "### 📊 Trading Output" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          tail -50 trading_output.log >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-        fi
-        
-        # Display balance if available
-        if [ -f "data/paper_balance.json" ]; then
-          echo "### 💰 Current Balance" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          cat data/paper_balance.json | python -c "
-import sys, json
-balance = json.load(sys.stdin)
-print('USD: $' + str(round(balance['USD'], 2)))
-print('Realized P&L: $' + str(round(balance['realized_pnl'], 2)))
-print('Available Margin: $' + str(round(balance['margin']['available'], 2)))
-print('Used Margin: $' + str(round(balance['margin']['used'], 2)))
-for coin in ['BTC', 'SOL']:
-    long_pos = balance['positions'][coin]['long']
-    short_pos = balance['positions'][coin]['short']
-    if long_pos['amount'] > 0:
-        print(coin + ' LONG: ' + str(round(long_pos['amount'], 6)) + ' @ $' + str(round(long_pos['avg_price'], 2)))
-    if short_pos['amount'] > 0:
-        print(coin + ' SHORT: ' + str(round(short_pos['amount'], 6)) + ' @ $' + str(round(short_pos['avg_price'], 2)))
-" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-        fi
-        
-        # Show recent history
-        if [ -f "data/paper_balance.json" ]; then
-          echo "### 📋 Recent Trading History" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          python -c "
-import json
+      - name: 🔄 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: 📦 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 🔍 Verify API key exists
+        run: |
+          if [ -z "${OPENAI_API_KEY}" ]; then
+            echo "❌ OPENAI_API_KEY secret not configured"
+            exit 1
+          fi
+          echo "✅ OpenAI API key is configured"
+
+      - name: 📊 Run trading bot
+        id: trading
+        shell: bash
+        run: |
+          echo "🤖 Starting TraderAgent execution..."
+          echo "📅 Execution time: $(date -u)"
+          echo "⏰ UTC Time: $(date -u '+%Y-%m-%d %H:%M:%S')"
+
+          # Determine trading mode and volume setting
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TRADING_MODE="${{ github.event.inputs.trading_mode }}"
+            USE_VOLUME="${{ github.event.inputs.use_volume }}"
+          else
+            TRADING_MODE="paper"
+            USE_VOLUME="true"
+          fi
+
+          echo "🎯 Trading mode: ${TRADING_MODE}"
+          echo "📈 Volume analysis: ${USE_VOLUME}"
+
+          # Build command arguments
+          ARGS="--live"
+          if [ "${TRADING_MODE}" = "paper" ]; then
+            ARGS="${ARGS} --paper"
+          fi
+          if [ "${USE_VOLUME}" = "false" ]; then
+            ARGS="${ARGS} --no-volume"
+          fi
+
+          echo "🚀 Command: python main.py ${ARGS}"
+
+          {
+            echo "execution_time=$(date -u)"
+            echo "trading_mode=${TRADING_MODE}"
+            echo "use_volume=${USE_VOLUME}"
+          } >> "$GITHUB_OUTPUT"
+
+          if [ "${TRADING_MODE}" = "live" ]; then
+            echo "⚠️ LIVE TRADING MODE - USING REAL MONEY!"
+            echo "YES" | python main.py ${ARGS} 2>&1 | tee trading_output.log
+          else
+            python main.py ${ARGS} 2>&1 | tee trading_output.log
+          fi
+
+          echo "execution_status=success" >> "$GITHUB_OUTPUT"
+
+      - name: 💾 Commit updated balance
+        if: success()
+        shell: bash
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "TraderAgent Bot"
+
+          if [ ! -f data/paper_balance.json ]; then
+            echo "ℹ️ data/paper_balance.json does not exist; nothing to commit."
+            exit 0
+          fi
+
+          if git diff --quiet -- data/paper_balance.json; then
+            echo "📊 No balance changes to commit"
+          else
+            echo "💾 Committing updated balance..."
+            git add data/paper_balance.json
+            git commit -m "🤖 Update trading balance - $(date -u '+%Y-%m-%d %H:%M:%S')"
+            git push origin main
+            echo "✅ Balance successfully persisted to repository"
+          fi
+
+      - name: 📈 Display trading results
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## 🤖 TraderAgent Execution Report"
+            echo
+            echo "**📅 Execution Time:** $(date -u)"
+            echo "**🎯 Trading Mode:** ${{ steps.trading.outputs.trading_mode }}"
+            echo "**📈 Volume Analysis:** ${{ steps.trading.outputs.use_volume }}"
+            echo "**⏱️ Workflow:** ${{ github.event_name }}"
+            echo
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -f "trading_output.log" ]; then
+            {
+              echo "### 📊 Trading Output"
+              echo '```'
+              tail -50 trading_output.log
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          if [ -f "data/paper_balance.json" ]; then
+            echo "### 💰 Current Balance" >> "$GITHUB_STEP_SUMMARY"
+            # safer heredoc into python to avoid YAML/quote issues
+            python >> "$GITHUB_STEP_SUMMARY" <<'PY'
+import json, sys
 with open('data/paper_balance.json', 'r') as f:
     balance = json.load(f)
+def r2(x): 
+    try: return round(float(x), 2)
+    except: return x
+print(f"USD: ${r2(balance.get('USD', 0))}")
+print(f"Realized P&L: ${r2(balance.get('realized_pnl', 0))}")
+m = balance.get('margin', {})
+print(f"Available Margin: ${r2(m.get('available', 0))}")
+print(f"Used Margin: ${r2(m.get('used', 0))}")
+for coin in ['BTC', 'SOL']:
+    pos = balance.get('positions', {}).get(coin, {})
+    long_pos = pos.get('long', {})
+    short_pos = pos.get('short', {})
+    if long_pos.get('amount', 0) > 0:
+        print(f"{coin} LONG: {round(long_pos['amount'], 6)} @ ${r2(long_pos['avg_price'])}")
+    if short_pos.get('amount', 0) > 0:
+        print(f"{coin} SHORT: {round(short_pos['amount'], 6)} @ ${r2(short_pos['avg_price'])}")
+PY
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          if [ -f "data/paper_balance.json" ]; then
+            echo "### 📋 Recent Trading History" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            python <<'PY' >> "$GITHUB_STEP_SUMMARY"
+import json
+try:
+    with open('data/paper_balance.json', 'r') as f:
+        balance = json.load(f)
     history = balance.get('history', [])
-    for trade in history[-5:]:  # Last 5 trades
+    for trade in history[-5:]:
         print(trade)
-          " >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-        fi
-        
-    - name: 📤 Upload trading logs
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-        name: trading-logs-${{ github.run_number }}
-        path: |
-          trading_output.log
-          data/paper_balance.json
-        retention-days: 30
-        
-    - name: ❌ Handle execution failure
-      if: failure()
-      run: |
-        echo "## ❌ Trading Execution Failed" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "**📅 Failed at:** $(date -u)" >> $GITHUB_STEP_SUMMARY
-        echo "**🎯 Trading Mode:** ${{ steps.trading.outputs.trading_mode }}" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "### 🔍 Error Details" >> $GITHUB_STEP_SUMMARY
-        if [ -f "trading_output.log" ]; then
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          tail -20 trading_output.log >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-        fi
-        
-        # Optional: You can add notification logic here
-        # For example, send to Discord, Slack, or email
+except Exception as e:
+    print("Error reading history:", e)
+PY
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: 📤 Upload trading logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trading-logs-${{ github.run_number }}
+          path: |
+            trading_output.log
+            data/paper_balance.json
+          retention-days: 30
+
+      - name: ❌ Handle execution failure
+        if: failure()
+        shell: bash
+        run: |
+          {
+            echo "## ❌ Trading Execution Failed"
+            echo
+            echo "**📅 Failed at:** $(date -u)"
+            echo "**🎯 Trading Mode:** ${{ steps.trading.outputs.trading_mode }}"
+            echo
+            echo "### 🔍 Error Details"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -f "trading_output.log" ]; then
+            {
+              echo '```'
+              tail -20 trading_output.log
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          # Optional: send notification here (Slack/Discord/etc.)
