@@ -2,10 +2,7 @@ name: TraderAgent Hourly Trading
 
 on:
   schedule:
-    # Run every hour at the start of the hour (UTC)
     - cron: "0 * * * *"
-
-  # Allow manual trigger with inputs
   workflow_dispatch:
     inputs:
       trading_mode:
@@ -19,7 +16,7 @@ on:
       use_volume:
         description: "Use volume analysis"
         required: true
-        default: true         # <-- boolean, not string
+        default: true          # boolean, not string
         type: boolean
 
 env:
@@ -30,7 +27,6 @@ jobs:
   trade:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-
     permissions:
       contents: write
 
@@ -45,7 +41,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          cache: pip
+          cache: "pip"
 
       - name: 📦 Install dependencies
         run: |
@@ -68,7 +64,6 @@ jobs:
           echo "📅 Execution time: $(date -u)"
           echo "⏰ UTC Time: $(date -u '+%Y-%m-%d %H:%M:%S')"
 
-          # Determine trading mode and volume setting
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             TRADING_MODE="${{ github.event.inputs.trading_mode }}"
             USE_VOLUME="${{ github.event.inputs.use_volume }}"
@@ -80,7 +75,6 @@ jobs:
           echo "🎯 Trading mode: ${TRADING_MODE}"
           echo "📈 Volume analysis: ${USE_VOLUME}"
 
-          # Build command arguments
           ARGS="--live"
           if [ "${TRADING_MODE}" = "paper" ]; then
             ARGS="${ARGS} --paper"
@@ -148,51 +142,65 @@ jobs:
               echo '```'
               tail -50 trading_output.log
               echo '```'
+              echo
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 
           if [ -f "data/paper_balance.json" ]; then
-            echo "### 💰 Current Balance" >> "$GITHUB_STEP_SUMMARY"
-            # safer heredoc into python to avoid YAML/quote issues
-            python >> "$GITHUB_STEP_SUMMARY" <<'PY'
-import json, sys
-with open('data/paper_balance.json', 'r') as f:
-    balance = json.load(f)
-def r2(x): 
-    try: return round(float(x), 2)
-    except: return x
-print(f"USD: ${r2(balance.get('USD', 0))}")
-print(f"Realized P&L: ${r2(balance.get('realized_pnl', 0))}")
-m = balance.get('margin', {})
-print(f"Available Margin: ${r2(m.get('available', 0))}")
-print(f"Used Margin: ${r2(m.get('used', 0))}")
-for coin in ['BTC', 'SOL']:
-    pos = balance.get('positions', {}).get(coin, {})
-    long_pos = pos.get('long', {})
-    short_pos = pos.get('short', {})
-    if long_pos.get('amount', 0) > 0:
-        print(f"{coin} LONG: {round(long_pos['amount'], 6)} @ ${r2(long_pos['avg_price'])}")
-    if short_pos.get('amount', 0) > 0:
-        print(f"{coin} SHORT: {round(short_pos['amount'], 6)} @ ${r2(short_pos['avg_price'])}")
-PY
-            echo '```' >> "$GITHUB_STEP_SUMMARY"
-          fi
+            {
+              echo "### 💰 Current Balance"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
 
-          if [ -f "data/paper_balance.json" ]; then
-            echo "### 📋 Recent Trading History" >> "$GITHUB_STEP_SUMMARY"
-            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            # heredoc with redirection AFTER the delimiter declaration (canonical)
             python <<'PY' >> "$GITHUB_STEP_SUMMARY"
 import json
 try:
     with open('data/paper_balance.json', 'r') as f:
         balance = json.load(f)
-    history = balance.get('history', [])
-    for trade in history[-5:]:
+    def r2(x):
+        try:
+            return round(float(x), 2)
+        except Exception:
+            return x
+    print(f"USD: ${r2(balance.get('USD', 0))}")
+    print(f"Realized P&L: ${r2(balance.get('realized_pnl', 0))}")
+    m = balance.get('margin', {})
+    print(f"Available Margin: ${r2(m.get('available', 0))}")
+    print(f"Used Margin: ${r2(m.get('used', 0))}")
+    for coin in ['BTC', 'SOL']:
+        pos = balance.get('positions', {}).get(coin, {})
+        long_pos = pos.get('long', {})
+        short_pos = pos.get('short', {})
+        if long_pos.get('amount', 0) > 0:
+            print(f"{coin} LONG: {round(long_pos['amount'], 6)} @ ${r2(long_pos.get('avg_price', 0))}")
+        if short_pos.get('amount', 0) > 0:
+            print(f"{coin} SHORT: {round(short_pos['amount'], 6)} @ ${r2(short_pos.get('avg_price', 0))}")
+except Exception as e:
+    print("Error reading balance:", e)
+PY
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            echo >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          if [ -f "data/paper_balance.json" ]; then
+            {
+              echo "### 📋 Recent Trading History"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+
+            python <<'PY' >> "$GITHUB_STEP_SUMMARY"
+import json
+try:
+    with open('data/paper_balance.json', 'r') as f:
+        balance = json.load(f)
+    for trade in balance.get('history', [])[-5:]:
         print(trade)
 except Exception as e:
     print("Error reading history:", e)
 PY
             echo '```' >> "$GITHUB_STEP_SUMMARY"
+            echo >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: 📤 Upload trading logs
@@ -225,5 +233,3 @@ PY
               echo '```'
             } >> "$GITHUB_STEP_SUMMARY"
           fi
-
-          # Optional: send notification here (Slack/Discord/etc.)
