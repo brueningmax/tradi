@@ -13,36 +13,36 @@
   "positions": {
     "BTC": {
       "long": {
-        "amount": 0.011407029015337022,
-        "avg_price": 65537.67630641726,
-        "stop_loss": 66500.0,
-        "take_profit": 72000.0
-      },
-      "short": {
         "amount": 0,
         "avg_price": 0,
         "stop_loss": null,
         "take_profit": null
+      },
+      "short": {
+        "amount": 0.006922257466781611,
+        "avg_price": 60705.11444253129,
+        "stop_loss": 67000.0,
+        "take_profit": 60000.0
       }
     },
     "SOL": {
       "long": {
+        "amount": 1.8266413039163025,
+        "avg_price": 161.03408018558045,
+        "stop_loss": 150.0,
+        "take_profit": 175.0
+      },
+      "short": {
         "amount": 0,
         "avg_price": 0,
         "stop_loss": null,
         "take_profit": null
-      },
-      "short": {
-        "amount": 2.565474495303479,
-        "avg_price": 145.7021257848506,
-        "stop_loss": 155.0,
-        "take_profit": 140.0
       }
     }
   },
   "margin": {
-    "available": 373.7950876125337,
-    "used": 1121.3852628376017
+    "available": 686.3535051453525,
+    "used": 714.3679339267961
   },
   "history": [
     "[PAPER] OPENED SHORT 0.077869 BTC at 64210.621711157735 (Margin: $5000.00) [SL: 65000.0] [TP: 61000.0]",
@@ -162,8 +162,12 @@
     "[PAPER] CLOSED LONG 0.011425 BTC at 66061.3832134449 (P&L: $-19.84)",
     "[PAPER] HELD SOL at 158.57830106285067",
     "[PAPER] OPENED LONG 0.011407 BTC at 65537.67630641726 (Margin: $747.59) [SL: 66500.0] [TP: 72000.0]",
-    "[PAPER] OPENED SHORT 2.565474 SOL at 145.7021257848506 (Margin: $373.80) [SL: 155.0] [TP: 140.0]"
+    "[PAPER] OPENED SHORT 2.565474 SOL at 145.7021257848506 (Margin: $373.80) [SL: 155.0] [TP: 140.0]",
+    "[STOP LOSS] CLOSED LONG 0.011407 BTC at 60705.11444253129 (P&L: $-55.13)",
+    "[STOP LOSS] CLOSED SHORT 2.565474 SOL at 161.03408018558045 (P&L: $-39.33)",
+    "[PAPER] OPENED SHORT 0.006922 BTC at 60705.11444253129 (Margin: $420.22) [SL: 67000.0] [TP: 60000.0]",
+    "[PAPER] OPENED LONG 1.826641 SOL at 161.03408018558045 (Margin: $294.15) [SL: 150.0] [TP: 175.0]"
   ],
-  "realized_pnl": -8504.819649549867,
+  "realized_pnl": -8599.278560927853,
   "paper_trading": true
 }
