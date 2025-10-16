@@ -33,16 +33,16 @@
         "take_profit": null
       },
       "short": {
-        "amount": 1.2261852338843278,
-        "avg_price": 172.11112081396172,
-        "stop_loss": 182.0,
-        "take_profit": 160.0
+        "amount": 0,
+        "avg_price": 0,
+        "stop_loss": null,
+        "take_profit": null
       }
     }
   },
   "margin": {
-    "available": 1405.3809203466824,
-    "used": 211.040114929362
+    "available": 1613.860651238261,
+    "used": 5.684341886080801e-13
   },
   "history": [
     "[PAPER] OPENED SHORT 0.077869 BTC at 64210.621711157735 (Margin: $5000.00) [SL: 65000.0] [TP: 61000.0]",
@@ -142,8 +142,10 @@
     "[PAPER] OPENED SHORT 2.452370 SOL at 172.11112081396172 (Margin: $422.08) [SL: 182.0] [TP: 160.0]",
     "[STOP LOSS] CLOSED LONG 0.010863 BTC at 70910.43898185344 (P&L: $-73.87)",
     "[PAPER] HELD BTC at 70910.43898185344",
-    "[PAPER] CLOSED SHORT 1.226185 SOL at 170.50549510412463 (P&L: $1.97)"
+    "[PAPER] CLOSED SHORT 1.226185 SOL at 170.50549510412463 (P&L: $1.97)",
+    "[PAPER] HELD BTC at 64365.851024589974",
+    "[PAPER] CLOSED SHORT 1.226185 SOL at 174.19920992727782 (P&L: $-2.56)"
   ],
-  "realized_pnl": -8383.578964723958,
+  "realized_pnl": -8386.13934876174,
   "paper_trading": true
 }
