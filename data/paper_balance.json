@@ -13,24 +13,24 @@
   "positions": {
     "BTC": {
       "long": {
+        "amount": 0.0004968995576000416,
+        "avg_price": 68932.14365960646,
+        "stop_loss": 69000.0,
+        "take_profit": 75000.0
+      },
+      "short": {
         "amount": 0,
         "avg_price": 0,
         "stop_loss": null,
         "take_profit": null
-      },
-      "short": {
-        "amount": 0.000671412598539806,
-        "avg_price": 57377.33226104521,
-        "stop_loss": 60000.0,
-        "take_profit": 54000.0
       }
     },
     "SOL": {
       "long": {
-        "amount": 0.1290854121868843,
-        "avg_price": 149.21850230023287,
-        "stop_loss": 145.0,
-        "take_profit": 170.0
+        "amount": 0.07178908939661068,
+        "avg_price": 143.13742649519426,
+        "stop_loss": 134.0,
+        "take_profit": 155.0
       },
       "short": {
         "amount": 0,
@@ -41,8 +41,8 @@
     }
   },
   "margin": {
-    "available": 19.2619318753351,
-    "used": 57.78579562600621
+    "available": 23.976646182216676,
+    "used": 44.52805719554616
   },
   "history": [
     "[PAPER] OPENED SHORT 0.077869 BTC at 64210.621711157735 (Margin: $5000.00) [SL: 65000.0] [TP: 61000.0]",
@@ -354,8 +354,12 @@
     "[TAKE PROFIT] CLOSED SHORT 0.000522 BTC at 56919.073614636305 (P&L: $6.82)",
     "[STOP LOSS] CLOSED SHORT 0.066647 SOL at 168.53723551591136 (P&L: $-2.25)",
     "[PAPER] OPENED SHORT 0.000671 BTC at 57377.33226104521 (Margin: $38.52) [SL: 60000.0] [TP: 54000.0]",
-    "[PAPER] OPENED LONG 0.129085 SOL at 149.21850230023287 (Margin: $19.26) [SL: 145.0] [TP: 170.0]"
+    "[PAPER] OPENED LONG 0.129085 SOL at 149.21850230023287 (Margin: $19.26) [SL: 145.0] [TP: 170.0]",
+    "[STOP LOSS] CLOSED SHORT 0.000671 BTC at 68932.14365960646 (P&L: $-7.76)",
+    "[STOP LOSS] CLOSED LONG 0.129085 SOL at 143.13742649519426 (P&L: $-0.78)",
+    "[PAPER] OPENED LONG 0.000497 BTC at 68932.14365960646 (Margin: $34.25) [SL: 69000.0] [TP: 75000.0]",
+    "[PAPER] OPENED LONG 0.071789 SOL at 143.13742649519426 (Margin: $10.28) [SL: 134.0] [TP: 155.0]"
   ],
-  "realized_pnl": -9922.952272498662,
+  "realized_pnl": -9931.49529662224,
   "paper_trading": true
 }
