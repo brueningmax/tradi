@@ -13,16 +13,16 @@
   "positions": {
     "BTC": {
       "long": {
-        "amount": 0.0003193143249378121,
-        "avg_price": 71220.73141786516,
-        "stop_loss": 67000.0,
-        "take_profit": 74000.0
-      },
-      "short": {
         "amount": 0,
         "avg_price": 0,
         "stop_loss": null,
         "take_profit": null
+      },
+      "short": {
+        "amount": 0.0006714524218369276,
+        "avg_price": 62100.790272581406,
+        "stop_loss": 71000.0,
+        "take_profit": 60000.0
       }
     },
     "SOL": {
@@ -33,16 +33,16 @@
         "take_profit": null
       },
       "short": {
-        "amount": 0.08052932115901704,
-        "avg_price": 141.20198361889697,
-        "stop_loss": 142.0,
-        "take_profit": 130.0
+        "amount": 0,
+        "avg_price": 0,
+        "stop_loss": null,
+        "take_profit": null
       }
     }
   },
   "margin": {
-    "available": 11.370899887136417,
-    "used": 34.11269966141016
+    "available": 0.0,
+    "used": 41.69772602651281
   },
   "history": [
     "[PAPER] OPENED SHORT 0.077869 BTC at 64210.621711157735 (Margin: $5000.00) [SL: 65000.0] [TP: 61000.0]",
@@ -459,8 +459,11 @@
     "[STOP LOSS] CLOSED LONG 0.000289 BTC at 58878.86925697014 (P&L: $-8.45)",
     "[TAKE PROFIT] CLOSED SHORT 0.073749 SOL at 132.8311587621791 (P&L: $2.95)",
     "[PAPER] OPENED LONG 0.000319 BTC at 71220.73141786516 (Margin: $22.74) [SL: 67000.0] [TP: 74000.0]",
-    "[PAPER] OPENED SHORT 0.080529 SOL at 141.20198361889697 (Margin: $11.37) [SL: 142.0] [TP: 130.0]"
+    "[PAPER] OPENED SHORT 0.080529 SOL at 141.20198361889697 (Margin: $11.37) [SL: 142.0] [TP: 130.0]",
+    "[STOP LOSS] CLOSED LONG 0.000319 BTC at 62100.790272581406 (P&L: $-2.91)",
+    "[STOP LOSS] CLOSED SHORT 0.080529 SOL at 152.05201512517988 (P&L: $-0.87)",
+    "[PAPER] OPENED SHORT 0.000671 BTC at 62100.790272581406 (Margin: $41.70) [SL: 71000.0] [TP: 60000.0]"
   ],
-  "realized_pnl": -9954.516400451455,
+  "realized_pnl": -9958.30227397349,
   "paper_trading": true
 }
