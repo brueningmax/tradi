@@ -13,16 +13,16 @@
   "positions": {
     "BTC": {
       "long": {
-        "amount": 3.1558892488960074e-05,
-        "avg_price": 70866.38254760763,
-        "stop_loss": 68000.0,
-        "take_profit": 75000.0
-      },
-      "short": {
         "amount": 0,
         "avg_price": 0,
         "stop_loss": null,
         "take_profit": null
+      },
+      "short": {
+        "amount": 6.730386360381928e-05,
+        "avg_price": 58968.6533283035,
+        "stop_loss": 62500.0,
+        "take_profit": 57000.0
       }
     },
     "SOL": {
@@ -33,16 +33,16 @@
         "take_profit": null
       },
       "short": {
-        "amount": 0.007367886206780736,
-        "avg_price": 151.77111081352112,
-        "stop_loss": 165.0,
-        "take_profit": 150.0
+        "amount": 0,
+        "avg_price": 0,
+        "stop_loss": null,
+        "take_profit": null
       }
     }
   },
   "margin": {
-    "available": 1.1182322739507329,
-    "used": 3.354696821853108
+    "available": 0.0,
+    "used": 3.9688182005099524
   },
   "history": [
     "[PAPER] OPENED SHORT 0.077869 BTC at 64210.621711157735 (Margin: $5000.00) [SL: 65000.0] [TP: 61000.0]",
@@ -633,8 +633,12 @@
     "[PAPER] HELD SOL at 145.44680077429857",
     "[STOP LOSS] CLOSED SHORT 0.000034 BTC at 70866.38254760763 (P&L: $-0.09)",
     "[PAPER] OPENED LONG 0.000032 BTC at 70866.38254760763 (Margin: $2.24) [SL: 68000.0] [TP: 75000.0]",
-    "[PAPER] OPENED SHORT 0.007368 SOL at 151.77111081352112 (Margin: $1.12) [SL: 165.0] [TP: 150.0]"
+    "[PAPER] OPENED SHORT 0.007368 SOL at 151.77111081352112 (Margin: $1.12) [SL: 165.0] [TP: 150.0]",
+    "[STOP LOSS] CLOSED LONG 0.000032 BTC at 58968.6533283035 (P&L: $-0.38)",
+    "[STOP LOSS] CLOSED SHORT 0.007368 SOL at 169.22954249786633 (P&L: $-0.13)",
+    "[PAPER] OPENED SHORT 0.000067 BTC at 58968.6533283035 (Margin: $3.97) [SL: 62500.0] [TP: 57000.0]",
+    "[PAPER] HELD SOL at 169.22954249786633"
   ],
-  "realized_pnl": -9995.527070904202,
+  "realized_pnl": -9996.031181799497,
   "paper_trading": true
 }
