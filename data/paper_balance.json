@@ -19,10 +19,10 @@
         "take_profit": null
       },
       "short": {
-        "amount": 2.995462401308844e-06,
-        "avg_price": 58201.59159868768,
-        "stop_loss": 70000.0,
-        "take_profit": 58000.0
+        "amount": 3.437031300869851e-06,
+        "avg_price": 53433.186640085965,
+        "stop_loss": 54000.0,
+        "take_profit": 62000.0
       }
     },
     "SOL": {
@@ -33,16 +33,16 @@
         "take_profit": null
       },
       "short": {
-        "amount": 0.000688277255590224,
-        "avg_price": 126.65003667795027,
-        "stop_loss": 150.0,
-        "take_profit": 125.0
+        "amount": 0.0007630074122654769,
+        "avg_price": 120.34714999812967,
+        "stop_loss": 130.0,
+        "take_profit": 115.0
       }
     }
   },
   "margin": {
-    "available": 0.08717033966510082,
-    "used": 0.2615110189962119
+    "available": 0.09182576749359811,
+    "used": 0.27547730248170377
   },
   "history": [
     "[PAPER] OPENED SHORT 0.077869 BTC at 64210.621711157735 (Margin: $5000.00) [SL: 65000.0] [TP: 61000.0]",
@@ -779,8 +779,12 @@
     "[STOP LOSS] CLOSED LONG 0.000002 BTC at 58201.59159868768 (P&L: $-0.03)",
     "[TAKE PROFIT] CLOSED SHORT 0.000309 SOL at 126.65003667795027 (P&L: $0.01)",
     "[PAPER] OPENED SHORT 0.000003 BTC at 58201.59159868768 (Margin: $0.17) [SL: 70000.0] [TP: 58000.0]",
-    "[PAPER] OPENED SHORT 0.000688 SOL at 126.65003667795027 (Margin: $0.09) [SL: 150.0] [TP: 125.0]"
+    "[PAPER] OPENED SHORT 0.000688 SOL at 126.65003667795027 (Margin: $0.09) [SL: 150.0] [TP: 125.0]",
+    "[TAKE PROFIT] CLOSED SHORT 0.000003 BTC at 53433.186640085965 (P&L: $0.01)",
+    "[TAKE PROFIT] CLOSED SHORT 0.000688 SOL at 120.34714999812967 (P&L: $0.00)",
+    "[PAPER] OPENED SHORT 0.000003 BTC at 53433.186640085965 (Margin: $0.18) [SL: 54000.0] [TP: 62000.0]",
+    "[PAPER] OPENED SHORT 0.000763 SOL at 120.34714999812967 (Margin: $0.09) [SL: 130.0] [TP: 115.0]"
   ],
-  "realized_pnl": -9999.651318641343,
+  "realized_pnl": -9999.63269693003,
   "paper_trading": true
 }
