@@ -19,10 +19,10 @@
         "take_profit": null
       },
       "short": {
-        "amount": 1.1846498693328708e-06,
-        "avg_price": 68620.37709552003,
-        "stop_loss": 73000.0,
-        "take_profit": 68000.0
+        "amount": 1.2459929231759066e-06,
+        "avg_price": 64020.43359376926,
+        "stop_loss": 71000.0,
+        "take_profit": 60000.0
       }
     },
     "SOL": {
@@ -33,16 +33,16 @@
         "take_profit": null
       },
       "short": {
-        "amount": 0.0003101513767155506,
-        "avg_price": 131.05071726690207,
-        "stop_loss": 135.0,
-        "take_profit": 110.0
+        "amount": 0.00025173906704794094,
+        "avg_price": 158.43589183815166,
+        "stop_loss": 165.0,
+        "take_profit": 145.0
       }
     }
   },
   "margin": {
-    "available": 0.04064556037989006,
-    "used": 0.12193668114057965
+    "available": 0.03988450359824478,
+    "used": 0.11965351079564382
   },
   "history": [
     "[PAPER] OPENED SHORT 0.077869 BTC at 64210.621711157735 (Margin: $5000.00) [SL: 65000.0] [TP: 61000.0]",
@@ -829,8 +829,12 @@
     "[TAKE PROFIT] CLOSED LONG 0.000001 BTC at 68620.37709552003 (P&L: $0.01)",
     "[STOP LOSS] CLOSED LONG 0.000255 SOL at 131.05071726690207 (P&L: $-0.01)",
     "[PAPER] OPENED SHORT 0.000001 BTC at 68620.37709552003 (Margin: $0.08) [SL: 73000.0] [TP: 68000.0]",
-    "[PAPER] OPENED SHORT 0.000310 SOL at 131.05071726690207 (Margin: $0.04) [SL: 135.0] [TP: 110.0]"
+    "[PAPER] OPENED SHORT 0.000310 SOL at 131.05071726690207 (Margin: $0.04) [SL: 135.0] [TP: 110.0]",
+    "[TAKE PROFIT] CLOSED SHORT 0.000001 BTC at 64020.43359376926 (P&L: $0.01)",
+    "[STOP LOSS] CLOSED SHORT 0.000310 SOL at 158.43589183815166 (P&L: $-0.01)",
+    "[PAPER] OPENED SHORT 0.000001 BTC at 64020.43359376926 (Margin: $0.08) [SL: 71000.0] [TP: 60000.0]",
+    "[PAPER] OPENED SHORT 0.000252 SOL at 158.43589183815166 (Margin: $0.04) [SL: 165.0] [TP: 145.0]"
   ],
-  "realized_pnl": -9999.837417758483,
+  "realized_pnl": -9999.840461985608,
   "paper_trading": true
 }
