@@ -13,10 +13,10 @@
   "positions": {
     "BTC": {
       "long": {
-        "amount": 4.791418575889193e-08,
-        "avg_price": 73258.56350929978,
-        "stop_loss": 73000.0,
-        "take_profit": 78000.0
+        "amount": 2.0561357273751357e-08,
+        "avg_price": 61314.458607291854,
+        "stop_loss": 57000.0,
+        "take_profit": 65000.0
       },
       "short": {
         "amount": 0,
@@ -27,22 +27,22 @@
     },
     "SOL": {
       "long": {
-        "amount": 1.0174906985642724e-05,
-        "avg_price": 172.48926331056998,
-        "stop_loss": 170.0,
-        "take_profit": 190.0
-      },
-      "short": {
         "amount": 0,
         "avg_price": 0,
         "stop_loss": null,
         "take_profit": null
+      },
+      "short": {
+        "amount": 6.371394663585238e-06,
+        "avg_price": 158.29607877553835,
+        "stop_loss": 165.0,
+        "take_profit": 150.0
       }
     }
   },
   "margin": {
-    "available": 0.0017550622102070858,
-    "used": 0.005265186631530707
+    "available": 0.004034267166307734,
+    "used": 0.0022692752819575496
   },
   "history": [
     "[PAPER] OPENED SHORT 0.077869 BTC at 64210.621711157735 (Margin: $5000.00) [SL: 65000.0] [TP: 61000.0]",
@@ -990,8 +990,12 @@
     "[STOP LOSS] CLOSED SHORT 0.000000 BTC at 73258.56350929978 (P&L: $-0.00)",
     "[STOP LOSS] CLOSED SHORT 0.000008 SOL at 172.48926331056998 (P&L: $-0.00)",
     "[PAPER] OPENED LONG 0.000000 BTC at 73258.56350929978 (Margin: $0.00) [SL: 73000.0] [TP: 78000.0]",
-    "[PAPER] OPENED LONG 0.000010 SOL at 172.48926331056998 (Margin: $0.00) [SL: 170.0] [TP: 190.0]"
+    "[PAPER] OPENED LONG 0.000010 SOL at 172.48926331056998 (Margin: $0.00) [SL: 170.0] [TP: 190.0]",
+    "[STOP LOSS] CLOSED LONG 0.000000 BTC at 61314.458607291854 (P&L: $-0.00)",
+    "[STOP LOSS] CLOSED LONG 0.000010 SOL at 158.29607877553835 (P&L: $-0.00)",
+    "[PAPER] OPENED LONG 0.000000 BTC at 61314.458607291854 (Margin: $0.00) [SL: 57000.0] [TP: 65000.0]",
+    "[PAPER] OPENED SHORT 0.000006 SOL at 158.29607877553835 (Margin: $0.00) [SL: 165.0] [TP: 150.0]"
   ],
-  "realized_pnl": -9999.99297975116,
+  "realized_pnl": -9999.993696457554,
   "paper_trading": true
 }
