@@ -19,30 +19,30 @@
         "take_profit": null
       },
       "short": {
-        "amount": 5.0270452801611505e-09,
-        "avg_price": 53935.40315588344,
-        "stop_loss": 58500.0,
-        "take_profit": 52000.0
+        "amount": 7.066704261229639e-09,
+        "avg_price": 54550.43317323868,
+        "stop_loss": 58000.0,
+        "take_profit": 53000.0
       }
     },
     "SOL": {
       "long": {
+        "amount": 2.951228393343152e-07,
+        "avg_price": 193.74316292635893,
+        "stop_loss": 180.0,
+        "take_profit": 220.0
+      },
+      "short": {
         "amount": 0,
         "avg_price": 0,
         "stop_loss": null,
         "take_profit": null
-      },
-      "short": {
-        "amount": 9.186979232524524e-07,
-        "avg_price": 147.56521540207416,
-        "stop_loss": 156.0,
-        "take_profit": 145.0
       }
     }
   },
   "margin": {
-    "available": 0.00013556785693418633,
-    "used": 0.0004067035717120091
+    "available": 5.717803234443788e-05,
+    "used": 0.00044266981181113646
   },
   "history": [
     "[PAPER] OPENED SHORT 0.077869 BTC at 64210.621711157735 (Margin: $5000.00) [SL: 65000.0] [TP: 61000.0]",
@@ -1150,8 +1150,11 @@
     "[STOP LOSS] CLOSED SHORT 0.000000 SOL at 140.77598022304502 (P&L: $-0.00)",
     "[TAKE PROFIT] CLOSED SHORT 0.000000 BTC at 53935.40315588344 (P&L: $0.00)",
     "[PAPER] OPENED SHORT 0.000000 BTC at 53935.40315588344 (Margin: $0.00) [SL: 58500.0] [TP: 52000.0]",
-    "[PAPER] OPENED SHORT 0.000001 SOL at 147.56521540207416 (Margin: $0.00) [SL: 156.0] [TP: 145.0]"
+    "[PAPER] OPENED SHORT 0.000001 SOL at 147.56521540207416 (Margin: $0.00) [SL: 156.0] [TP: 145.0]",
+    "[STOP LOSS] CLOSED SHORT 0.000001 SOL at 193.74316292635893 (P&L: $-0.00)",
+    "[PAPER] OPENED SHORT 0.000000 BTC at 56066.266836905044 (Margin: $0.00) [SL: 58000.0] [TP: 53000.0]",
+    "[PAPER] OPENED LONG 0.000000 SOL at 193.74316292635893 (Margin: $0.00) [SL: 180.0] [TP: 220.0]"
   ],
-  "realized_pnl": -9999.999457728574,
+  "realized_pnl": -9999.999500152158,
   "paper_trading": true
 }
