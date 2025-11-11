@@ -13,16 +13,16 @@
   "positions": {
     "BTC": {
       "long": {
-        "amount": 1.2212207286663156e-12,
-        "avg_price": 72267.85104397588,
-        "stop_loss": 69000.0,
-        "take_profit": 75000.0
-      },
-      "short": {
         "amount": 0,
         "avg_price": 0,
         "stop_loss": null,
         "take_profit": null
+      },
+      "short": {
+        "amount": 1.4419295496426417e-12,
+        "avg_price": 58796.84793828795,
+        "stop_loss": 62000.0,
+        "take_profit": 58000.0
       }
     },
     "SOL": {
@@ -33,16 +33,16 @@
         "take_profit": null
       },
       "short": {
-        "amount": 0,
-        "avg_price": 0,
-        "stop_loss": null,
-        "take_profit": null
+        "amount": 3.3006397357598937e-10,
+        "avg_price": 128.43103042953527,
+        "stop_loss": 140.0,
+        "take_profit": 120.0
       }
     }
   },
   "margin": {
-    "available": 9.775789545364628e-08,
-    "used": 8.825590716107868e-08
+    "available": 4.239045623403122e-08,
+    "used": 1.2717227815209935e-07
   },
   "history": [
     "[PAPER] OPENED SHORT 0.077869 BTC at 64210.621711157735 (Margin: $5000.00) [SL: 65000.0] [TP: 61000.0]",
@@ -1711,8 +1711,11 @@
     "[PAPER] OPENED SHORT 0.000000 SOL at 142.47427910457682 (Margin: $0.00) [SL: 155.0] [TP: 135.0]",
     "[STOP LOSS] CLOSED SHORT 0.000000 BTC at 72267.85104397588 (P&L: $-0.00)",
     "[PAPER] OPENED LONG 0.000000 BTC at 72267.85104397588 (Margin: $0.00) [SL: 69000.0] [TP: 75000.0]",
-    "[PAPER] CLOSED SHORT 0.000000 SOL at 138.321222982205 (P&L: $0.00)"
+    "[PAPER] CLOSED SHORT 0.000000 SOL at 138.321222982205 (P&L: $0.00)",
+    "[STOP LOSS] CLOSED LONG 0.000000 BTC at 58796.84793828795 (P&L: $-0.00)",
+    "[PAPER] OPENED SHORT 0.000000 BTC at 58796.84793828795 (Margin: $0.00) [SL: 62000.0] [TP: 58000.0]",
+    "[PAPER] OPENED SHORT 0.000000 SOL at 128.43103042953527 (Margin: $0.00) [SL: 140.0] [TP: 120.0]"
   ],
-  "realized_pnl": -9999.999999813994,
+  "realized_pnl": -9999.999999830445,
   "paper_trading": true
 }
