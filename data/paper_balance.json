@@ -19,30 +19,30 @@
         "take_profit": 68000.0
       },
       "short": {
-        "amount": 0,
-        "avg_price": 0,
-        "stop_loss": null,
-        "take_profit": null
+        "amount": 9.86590770538551e-13,
+        "avg_price": 61711.789077728776,
+        "stop_loss": 64500.0,
+        "take_profit": 58000.0
       }
     },
     "SOL": {
       "long": {
+        "amount": 1.8115209772848228e-10,
+        "avg_price": 168.04740961036143,
+        "stop_loss": 165.0,
+        "take_profit": 180.0
+      },
+      "short": {
         "amount": 0,
         "avg_price": 0,
         "stop_loss": null,
         "take_profit": null
-      },
-      "short": {
-        "amount": 5.686834988052443e-10,
-        "avg_price": 127.39033949698283,
-        "stop_loss": 140.0,
-        "take_profit": 120.0
       }
     }
   },
   "margin": {
-    "available": 7.244478397913211e-08,
-    "used": 2.1733526138740198e-07
+    "available": 3.0442140768754484e-08,
+    "used": 2.3621689971453334e-07
   },
   "history": [
     "[PAPER] OPENED SHORT 0.077869 BTC at 64210.621711157735 (Margin: $5000.00) [SL: 65000.0] [TP: 61000.0]",
@@ -1682,8 +1682,11 @@
     "[STOP LOSS] CLOSED LONG 0.000000 BTC at 61965.86202686681 (P&L: $-0.00)",
     "[STOP LOSS] CLOSED LONG 0.000000 SOL at 127.39033949698283 (P&L: $-0.00)",
     "[PAPER] OPENED LONG 0.000000 BTC at 61965.86202686681 (Margin: $0.00) [SL: 59000.0] [TP: 68000.0]",
-    "[PAPER] OPENED SHORT 0.000000 SOL at 127.39033949698283 (Margin: $0.00) [SL: 140.0] [TP: 120.0]"
+    "[PAPER] OPENED SHORT 0.000000 SOL at 127.39033949698283 (Margin: $0.00) [SL: 140.0] [TP: 120.0]",
+    "[STOP LOSS] CLOSED SHORT 0.000000 SOL at 168.04740961036143 (P&L: $-0.00)",
+    "[PAPER] OPENED SHORT 0.000000 BTC at 61711.789077728776 (Margin: $0.00) [SL: 64500.0] [TP: 58000.0]",
+    "[PAPER] OPENED LONG 0.000000 SOL at 168.04740961036143 (Margin: $0.00) [SL: 165.0] [TP: 180.0]"
   ],
-  "realized_pnl": -9999.999999710226,
+  "realized_pnl": -9999.999999733347,
   "paper_trading": true
 }
