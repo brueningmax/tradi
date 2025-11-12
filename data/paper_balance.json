@@ -19,7 +19,7 @@
         "take_profit": null
       },
       "short": {
-        "amount": 4.572976424819005e-13,
+        "amount": 2.286488212409503e-13,
         "avg_price": 60041.41956238141,
         "stop_loss": 65000.0,
         "take_profit": 59000.0
@@ -27,22 +27,22 @@
     },
     "SOL": {
       "long": {
-        "amount": 6.037774220716215e-11,
-        "avg_price": 145.349771487371,
-        "stop_loss": 135.0,
-        "take_profit": 150.0
+        "amount": 0,
+        "avg_price": 0,
+        "stop_loss": null,
+        "take_profit": null
       },
       "short": {
-        "amount": 1.5152298957936953e-10,
-        "avg_price": 138.4901192973477,
-        "stop_loss": 140.0,
-        "take_profit": 125.0
+        "amount": 0,
+        "avg_price": 0,
+        "stop_loss": null,
+        "take_profit": null
       }
     }
   },
   "margin": {
-    "available": 1.3728399808571842e-08,
-    "used": 5.7218037003021444e-08
+    "available": 5.4973242156894434e-08,
+    "used": 1.3729309258577529e-08
   },
   "history": [
     "[PAPER] OPENED SHORT 0.077869 BTC at 64210.621711157735 (Margin: $5000.00) [SL: 65000.0] [TP: 61000.0]",
@@ -1763,8 +1763,12 @@
     "[STOP LOSS] CLOSED LONG 0.000000 BTC at 60041.41956238141 (P&L: $-0.00)",
     "[TAKE PROFIT] CLOSED SHORT 0.000000 BTC at 60041.41956238141 (P&L: $0.00)",
     "[PAPER] OPENED SHORT 0.000000 BTC at 60041.41956238141 (Margin: $0.00) [SL: 65000.0] [TP: 59000.0]",
-    "[PAPER] OPENED SHORT 0.000000 SOL at 138.03205587297398 (Margin: $0.00) [SL: 140.0] [TP: 125.0]"
+    "[PAPER] OPENED SHORT 0.000000 SOL at 138.03205587297398 (Margin: $0.00) [SL: 140.0] [TP: 125.0]",
+    "[TAKE PROFIT] CLOSED LONG 0.000000 SOL at 151.42363727903594 (P&L: $0.00)",
+    "[STOP LOSS] CLOSED SHORT 0.000000 SOL at 151.42363727903594 (P&L: $-0.00)",
+    "[PAPER] CLOSED SHORT 0.000000 BTC at 62888.08365273121 (P&L: $-0.00)",
+    "[PAPER] HELD SOL at 151.42363727903594"
   ],
-  "realized_pnl": -9999.999999929058,
+  "realized_pnl": -9999.9999999313,
   "paper_trading": true
 }
