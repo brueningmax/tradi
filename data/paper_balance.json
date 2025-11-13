@@ -13,16 +13,16 @@
   "positions": {
     "BTC": {
       "long": {
-        "amount": 3.046955154301454e-13,
-        "avg_price": 77758.01500425232,
-        "stop_loss": 77000.0,
-        "take_profit": 85000.0
-      },
-      "short": {
         "amount": 0,
         "avg_price": 0,
         "stop_loss": null,
         "take_profit": null
+      },
+      "short": {
+        "amount": 4.963467031839979e-13,
+        "avg_price": 59372.151317056,
+        "stop_loss": 60500.0,
+        "take_profit": 57000.0
       }
     },
     "SOL": {
@@ -33,16 +33,16 @@
         "take_profit": null
       },
       "short": {
-        "amount": 1.1110560313370251e-10,
-        "avg_price": 143.07735480384287,
-        "stop_loss": 155.0,
-        "take_profit": 140.0
+        "amount": 1.1183874710276065e-10,
+        "avg_price": 131.74848757955542,
+        "stop_loss": 140.0,
+        "take_profit": 125.0
       }
     }
   },
   "margin": {
-    "available": 2.3692518460545638e-08,
-    "used": 3.959012371080703e-08
+    "available": 1.4734585783581101e-08,
+    "used": 4.4204666800748986e-08
   },
   "history": [
     "[PAPER] OPENED SHORT 0.077869 BTC at 64210.621711157735 (Margin: $5000.00) [SL: 65000.0] [TP: 61000.0]",
@@ -1804,8 +1804,12 @@
     "[PAPER] OPENED SHORT 0.000000 SOL at 143.07735480384287 (Margin: $0.00) [SL: 155.0] [TP: 140.0]",
     "[STOP LOSS] CLOSED LONG 0.000000 BTC at 66231.48563991617 (P&L: $-0.00)",
     "[PAPER] OPENED LONG 0.000000 BTC at 77758.01500425232 (Margin: $0.00) [SL: 77000.0] [TP: 85000.0]",
-    "[PAPER] HELD SOL at 146.51272859605552"
+    "[PAPER] HELD SOL at 146.51272859605552",
+    "[STOP LOSS] CLOSED LONG 0.000000 BTC at 59372.151317056 (P&L: $-0.00)",
+    "[TAKE PROFIT] CLOSED SHORT 0.000000 SOL at 131.74848757955542 (P&L: $0.00)",
+    "[PAPER] OPENED SHORT 0.000000 BTC at 59372.151317056 (Margin: $0.00) [SL: 60500.0] [TP: 57000.0]",
+    "[PAPER] OPENED SHORT 0.000000 SOL at 131.74848757955542 (Margin: $0.00) [SL: 140.0] [TP: 125.0]"
   ],
-  "realized_pnl": -9999.999999936721,
+  "realized_pnl": -9999.999999941065,
   "paper_trading": true
 }
