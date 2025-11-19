@@ -1,8 +1,8 @@
 name: TraderAgent Hourly Trading
 
 on:
-  schedule:
-    - cron: "0 * * * *"
+  #schedule:
+  #  - cron: "0 * * * *"
   workflow_dispatch:
     inputs:
       trading_mode:
